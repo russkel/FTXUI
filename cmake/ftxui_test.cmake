@@ -24,6 +24,7 @@ add_executable(ftxui-tests
   src/ftxui/component/slider_test.cpp
   src/ftxui/component/task_test.cpp
   src/ftxui/component/terminal_input_parser_test.cpp
+  src/ftxui/component/theme_test.cpp
   src/ftxui/component/toggle_test.cpp
   src/ftxui/dom/blink_test.cpp
   src/ftxui/dom/bold_test.cpp

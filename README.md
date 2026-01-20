@@ -315,6 +315,75 @@ Prebuilt components are declared in [<ftxui/component/component.hpp>](https://ar
 
 </details>
 
+<details><summary>Themes</summary>
+
+FTXUI provides optional themes that can be applied to components to change their appearance. Themes are implemented as factory functions that return pre-configured component options.
+
+**D-Flat v20 Theme**
+
+A DOS-era theme inspired by the D-Flat v20 library, featuring:
+- Classic DOS color palette (CYAN, LIGHTGRAY, BLACK, BLUE, etc.)
+- Box-drawing borders (single-line for normal, double-line for focused)
+- High-contrast focused/active states
+- Traditional DOS markers for checkboxes [X]/[ ] and radioboxes (*)/( )
+
+Usage example:
+```cpp
+#include "ftxui/component/theme.hpp"
+
+// Create components with D-Flat theme
+auto button = Button("OK", callback, theme::Dflat20Button());
+auto menu = Menu(&entries, &selected, theme::Dflat20Menu());
+auto checkbox = Checkbox("Option", &checked, theme::Dflat20Checkbox());
+auto radiobox = Radiobox(&options, &selected, theme::Dflat20Radiobox());
+auto input = Input(&content, "Placeholder", theme::Dflat20Input());
+
+// Wrap content in a themed window
+auto window = vbox({...}) | theme::Dflat20Window("Title", focused);
+```
+
+[Full example](https://github.com/ArthurSonzogni/FTXUI/blob/master/examples/component/dflat20_theme.cpp):
+
+```
+╔═══════════════════════════════════════════════════════════╗
+║  FTXUI - D-Flat v20 Theme Demonstration                  ║
+╚═══════════════════════════════════════════════════════════╝
+
+┌Main Menu──────────────┐  ┌Select One──────┐
+│Menu:                  │  │Radio Buttons:  │
+├───────────────────────┤  ├────────────────┤
+│File                   │  │(*) Option A    │
+│Edit                   │  │( ) Option B    │
+│View                   │  │( ) Option C    │
+└───────────────────────┘  └────────────────┘
+
+┌Button Demo────────────┐  ┌Text Input──────┐
+│Buttons:               │  │Input Field:    │
+├───────────────────────┤  ├────────────────┤
+│┌──┐  ┌──────┐         │  │┌──────────────┐│
+││OK│  │Cancel│         │  ││Enter text... ││
+│└──┘  └──────┘         │  │└──────────────┘│
+└───────────────────────┘  └────────────────┘
+
+┌Options────────────────┐
+│Checkboxes:            │
+├───────────────────────┤
+│[ ] Enable feature A   │
+│[X] Enable feature B   │
+│[ ] Enable feature C   │
+└───────────────────────┘
+```
+
+Available theme functions:
+- `theme::Dflat20Button()` - Button with DOS styling
+- `theme::Dflat20Menu()` - Menu with DOS colors
+- `theme::Dflat20Checkbox()` - Checkbox with [X]/[ ] markers
+- `theme::Dflat20Radiobox()` - Radiobox with (*)/( ) markers
+- `theme::Dflat20Input()` - Input field with borders
+- `theme::Dflat20Window(title, focused)` - Window decorator with title bar
+
+</details>
+
 ## Libraries for FTXUI
 - *Want to share a useful Component for FTXUI? Feel free to add yours here*
 - [ftxui-grid-container](https://github.com/mingsheng13/grid-container-ftxui)

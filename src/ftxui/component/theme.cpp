@@ -153,8 +153,7 @@ InputOption Dflat20Input() {
     // (Since inverted swaps fg/bg, we get LIGHTGRAY on BLACK,
     // but we override with specific colors for better effect)
     if (state.focused) {
-      // Re-apply with focus colors
-      state.element = state.element;  // Keep the element as is
+      // Apply focus colors directly
       state.element |= color(Color::White);
       state.element |= bgcolor(Color::Cyan);
       state.element |= bold;

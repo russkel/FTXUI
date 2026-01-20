@@ -53,7 +53,8 @@ RadioboxOption Dflat20Radiobox();
 /// - Focused: WHITE text on CYAN background
 InputOption Dflat20Input();
 
-/// @brief Create a decorator for window-like containers with D-Flat v20 styling.
+/// @brief Create a decorator for window-like containers with D-Flat v20
+/// styling.
 /// @param title The window title to display in the top border
 /// @param focused Whether the window is focused (uses double border if true)
 /// @return A decorator that applies D-Flat v20 window styling

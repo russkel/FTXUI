@@ -18,20 +18,20 @@ ButtonOption Dflat20Button() {
   option.transform = [](const EntryState& s) {
     // D-Flat buttons: BLACK text on CYAN background
     auto element = text(s.label) | color(Color::Black) | bgcolor(Color::Cyan);
-    
+
     // Add single line border
     element |= borderLight;
-    
+
     // Focused state: inverted colors (similar to WHITE on CYAN effect)
     if (s.focused) {
       element |= inverted;
     }
-    
+
     // Active/pressed state: bold text
     if (s.active) {
       element |= bold;
     }
-    
+
     return element;
   };
   return option;
@@ -41,14 +41,14 @@ ButtonOption Dflat20Button() {
 /// Mimics DOS menu style with high-contrast selection
 MenuOption Dflat20Menu() {
   auto option = MenuOption::Vertical();
-  
+
   option.entries_option.transform = [](const EntryState& state) {
     Element e = text(state.label);
-    
+
     // Normal state: BLACK text on LIGHTGRAY background
     e |= color(Color::Black);
     e |= bgcolor(Color::GrayLight);
-    
+
     // Selected/Active state: LIGHTGRAY text on BLACK background
     if (state.active) {
       e = text(state.label);  // Reset to avoid double application
@@ -56,15 +56,15 @@ MenuOption Dflat20Menu() {
       e |= bgcolor(Color::Black);
       e |= bold;
     }
-    
+
     // Focused state: add extra emphasis
     if (state.focused && !state.active) {
       e |= bold;
     }
-    
+
     return e;
   };
-  
+
   return option;
 }
 
@@ -76,12 +76,12 @@ CheckboxOption Dflat20Checkbox() {
     // D-Flat checkbox markers: [X] or [ ]
     auto prefix = text(s.state ? "[X] " : "[ ] ");
     auto label = text(s.label);
-    
+
     // Normal state: LIGHTGRAY text on BLUE background
     auto element = hbox({prefix, label});
     element |= color(Color::GrayLight);
     element |= bgcolor(Color::Blue);
-    
+
     // Focused state: inverted to BLACK on LIGHTGRAY
     if (s.focused) {
       element = hbox({prefix, label});  // Reset
@@ -89,12 +89,12 @@ CheckboxOption Dflat20Checkbox() {
       element |= bgcolor(Color::GrayLight);
       element |= bold;
     }
-    
+
     // Active state: bold
     if (s.active && !s.focused) {
       element |= bold;
     }
-    
+
     return element;
   };
   return option;
@@ -108,12 +108,12 @@ RadioboxOption Dflat20Radiobox() {
     // D-Flat radiobox markers: (*) or ( )
     auto prefix = text(s.state ? "(*) " : "( ) ");
     auto label = text(s.label);
-    
+
     // Normal state: LIGHTGRAY text on BLUE background
     auto element = hbox({prefix, label});
     element |= color(Color::GrayLight);
     element |= bgcolor(Color::Blue);
-    
+
     // Focused state: inverted to BLACK on LIGHTGRAY
     if (s.focused) {
       element = hbox({prefix, label});  // Reset
@@ -121,12 +121,12 @@ RadioboxOption Dflat20Radiobox() {
       element |= bgcolor(Color::GrayLight);
       element |= bold;
     }
-    
+
     // Active state: bold
     if (s.active && !s.focused) {
       element |= bold;
     }
-    
+
     return element;
   };
   return option;
@@ -139,18 +139,18 @@ InputOption Dflat20Input() {
   option.transform = [](InputState state) {
     // Add light border frame for D-Flat look
     state.element |= borderLight;
-    
+
     // Normal state: BLACK text on LIGHTGRAY background
     state.element |= color(Color::Black);
     state.element |= bgcolor(Color::GrayLight);
-    
+
     // Placeholder text: dimmed
     if (state.is_placeholder) {
       state.element |= dim;
     }
-    
+
     // Focused state: inverted to simulate WHITE on CYAN
-    // (Since inverted swaps fg/bg, we get LIGHTGRAY on BLACK, 
+    // (Since inverted swaps fg/bg, we get LIGHTGRAY on BLACK,
     // but we override with specific colors for better effect)
     if (state.focused) {
       // Re-apply with focus colors
@@ -159,20 +159,23 @@ InputOption Dflat20Input() {
       state.element |= bgcolor(Color::Cyan);
       state.element |= bold;
     }
-    
+
     return state.element;
   };
   return option;
 }
 
-/// @brief Create a decorator for window-like containers with D-Flat v20 styling.
+/// @brief Create a decorator for window-like containers with D-Flat v20
+/// styling.
 /// @param title The window title to display
 /// @param focused Whether the window is focused (uses double border if true)
 Decorator Dflat20Window(const std::string& title, bool focused) {
   return [title, focused](Element element) {
-    // D-Flat windows use double-line borders when focused, single-line otherwise
-    auto title_element = text(title) | color(Color::Black) | bgcolor(Color::Cyan);
-    
+    // D-Flat windows use double-line borders when focused, single-line
+    // otherwise
+    auto title_element =
+        text(title) | color(Color::Black) | bgcolor(Color::Cyan);
+
     Element result;
     if (focused) {
       // Focused window: double-line border with title
@@ -185,7 +188,7 @@ Decorator Dflat20Window(const std::string& title, bool focused) {
       result |= color(Color::GrayLight);
       result |= bgcolor(Color::Blue);
     }
-    
+
     return result;
   };
 }

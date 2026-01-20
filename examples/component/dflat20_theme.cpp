@@ -1,13 +1,13 @@
 // Copyright 2021 Arthur Sonzogni. All rights reserved.
 // Use of this source code is governed by the MIT license that can be found in
 // the LICENSE file.
-#include <memory>   // for allocator, __shared_ptr_access
-#include <string>   // for string, basic_string, operator+, to_string
-#include <vector>   // for vector
+#include <memory>  // for allocator, __shared_ptr_access
+#include <string>  // for string, basic_string, operator+, to_string
+#include <vector>  // for vector
 
 #include "ftxui/component/captured_mouse.hpp"  // for ftxui
-#include "ftxui/component/component.hpp"       // for Button, Checkbox, Horizontal, Renderer, Vertical, Input, Menu, Radiobox
-#include "ftxui/component/component_base.hpp"  // for ComponentBase
+#include "ftxui/component/component.hpp"  // for Button, Checkbox, Horizontal, Renderer, Vertical, Input, Menu, Radiobox
+#include "ftxui/component/component_base.hpp"      // for ComponentBase
 #include "ftxui/component/screen_interactive.hpp"  // for ScreenInteractive
 #include "ftxui/component/theme.hpp"  // for theme::Dflat20Button, theme::Dflat20Checkbox, etc.
 #include "ftxui/dom/elements.hpp"  // for separator, gauge, text, Element, operator|, vbox, border, hbox, filler
@@ -36,11 +36,7 @@ int main() {
 
   // Menu state
   std::vector<std::string> menu_entries = {
-      "File",
-      "Edit",
-      "View",
-      "Tools",
-      "Help",
+      "File", "Edit", "View", "Tools", "Help",
   };
   int menu_selected = 0;
 
@@ -88,7 +84,8 @@ int main() {
   auto radiobox =
       Radiobox(&radiobox_entries, &radiobox_selected, theme::Dflat20Radiobox());
 
-  auto input_component = Input(&input_content, "Enter text...", theme::Dflat20Input());
+  auto input_component =
+      Input(&input_content, "Enter text...", theme::Dflat20Input());
 
   // Less/More buttons for progress
   auto less_button = Button(
@@ -117,85 +114,102 @@ int main() {
   auto renderer = Renderer(main_container, [&] {
     // Create individual component renderings
     auto menu_box = vbox({
-        text("Menu:") | bold,
-        separator(),
-        menu->Render(),
-    }) | theme::Dflat20Window("Main Menu", false);
+                        text("Menu:") | bold,
+                        separator(),
+                        menu->Render(),
+                    }) |
+                    theme::Dflat20Window("Main Menu", false);
 
     auto button_box = vbox({
-        text("Buttons:") | bold,
-        separator(),
-        hbox({
-            button->Render(),
-            text("  "),
-            cancel_button->Render(),
-        }),
-        text(""),
-        text("Status: " + button_status),
-    }) | theme::Dflat20Window("Button Demo", false);
+                          text("Buttons:") | bold,
+                          separator(),
+                          hbox({
+                              button->Render(),
+                              text("  "),
+                              cancel_button->Render(),
+                          }),
+                          text(""),
+                          text("Status: " + button_status),
+                      }) |
+                      theme::Dflat20Window("Button Demo", false);
 
     auto checkbox_box = vbox({
-        text("Checkboxes:") | bold,
-        separator(),
-        checkbox_container->Render(),
-    }) | theme::Dflat20Window("Options", false);
+                            text("Checkboxes:") | bold,
+                            separator(),
+                            checkbox_container->Render(),
+                        }) |
+                        theme::Dflat20Window("Options", false);
 
     auto radiobox_box = vbox({
-        text("Radio Buttons:") | bold,
-        separator(),
-        radiobox->Render(),
-    }) | theme::Dflat20Window("Select One", false);
+                            text("Radio Buttons:") | bold,
+                            separator(),
+                            radiobox->Render(),
+                        }) |
+                        theme::Dflat20Window("Select One", false);
 
-    auto input_box = vbox({
-        text("Input Field:") | bold,
-        separator(),
-        input_component->Render(),
-        text(""),
-        text("Current: " + (input_content.empty() ? "(empty)" : input_content)),
-    }) | theme::Dflat20Window("Text Input", false);
+    auto input_box =
+        vbox({
+            text("Input Field:") | bold,
+            separator(),
+            input_component->Render(),
+            text(""),
+            text("Current: " +
+                 (input_content.empty() ? "(empty)" : input_content)),
+        }) |
+        theme::Dflat20Window("Text Input", false);
 
     auto progress_box = vbox({
-        text("Progress:") | bold,
-        separator(),
-        hbox({
-            text("Value: "),
-            text(std::to_string(progress) + "%"),
-        }),
-        gauge(progress / 100.0f),
-        text(""),
-        hbox({
-            less_button->Render(),
-            text("  "),
-            more_button->Render(),
-        }),
-    }) | theme::Dflat20Window("Progress Bar", false);
+                            text("Progress:") | bold,
+                            separator(),
+                            hbox({
+                                text("Value: "),
+                                text(std::to_string(progress) + "%"),
+                            }),
+                            gauge(progress / 100.0f),
+                            text(""),
+                            hbox({
+                                less_button->Render(),
+                                text("  "),
+                                more_button->Render(),
+                            }),
+                        }) |
+                        theme::Dflat20Window("Progress Bar", false);
 
     // Main application layout with title
     return vbox({
-        text("╔═══════════════════════════════════════════════════════════╗") | color(Color::GrayLight) | bgcolor(Color::Blue),
-        text("║  FTXUI - D-Flat v20 Theme Demonstration                  ║") | color(Color::GrayLight) | bgcolor(Color::Blue) | bold,
-        text("╚═══════════════════════════════════════════════════════════╝") | color(Color::GrayLight) | bgcolor(Color::Blue),
-        text(""),
-        hbox({
-            vbox({
-                menu_box,
-                text(""),
-                button_box,
-                text(""),
-                checkbox_box,
-            }),
-            text("  "),
-            vbox({
-                radiobox_box,
-                text(""),
-                input_box,
-                text(""),
-                progress_box,
-            }),
-        }),
-        text(""),
-        text("Press Tab to switch focus, Enter to activate, Esc to quit") | dim,
-    }) | color(Color::GrayLight) | bgcolor(Color::Blue);
+               text("╔═════════════════════════════════════════════════════════"
+                    "══╗") |
+                   color(Color::GrayLight) | bgcolor(Color::Blue),
+               text("║  FTXUI - D-Flat v20 Theme Demonstration                 "
+                    " ║") |
+                   color(Color::GrayLight) | bgcolor(Color::Blue) | bold,
+               text("╚═════════════════════════════════════════════════════════"
+                    "══╝") |
+                   color(Color::GrayLight) | bgcolor(Color::Blue),
+               text(""),
+               hbox({
+                   vbox({
+                       menu_box,
+                       text(""),
+                       button_box,
+                       text(""),
+                       checkbox_box,
+                   }),
+                   text("  "),
+                   vbox({
+                       radiobox_box,
+                       text(""),
+                       input_box,
+                       text(""),
+                       progress_box,
+                   }),
+               }),
+               text(""),
+               text("Press Tab to switch focus, Enter to activate, Esc to "
+                    "quit") |
+                   dim,
+           }) |
+           color(Color::GrayLight) | bgcolor(Color::Blue);
   });
 
   screen.Loop(renderer);
